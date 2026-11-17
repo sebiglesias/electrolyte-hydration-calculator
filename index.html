@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweat Rate & Electrolyte Replacement Calculator (Na, K, Mg) — Accurate Material Estimator</title>
+  <meta name="description" content="Calculate exact hourly sweat rates and elemental sodium, potassium, and magnesium losses based on pre/post bodyweight, session length, and heat index.">
+  <link rel="canonical" href="https://sebiglesias.com.ar/electrolyte-hydration-calculator/">
+  <meta name="theme-color" content="#06b6d4">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sweat Rate & Electrolyte Replacement Calculator (Na, K, Mg)">
+  <meta property="og:description" content="Calculate exact hourly sweat rates and elemental sodium, potassium, and magnesium losses based on pre/post bodyweight, session length, and heat index.">
+  <meta property="og:url" content="https://sebiglesias.com.ar/electrolyte-hydration-calculator/">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BNDBQP0W7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2BNDBQP0W7');
+  </script>
+
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-3381238987477190">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3381238987477190" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Sweat Rate & Electrolyte Replacement Calculator (Na, K, Mg)",
+    "url": "https://sebiglesias.com.ar/electrolyte-hydration-calculator/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "description": "Calculate exact hourly sweat rates and elemental sodium, potassium, and magnesium losses based on pre/post bodyweight, session length, and heat index.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I calculate my personal sweat rate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Weigh yourself nude immediately prior to training. After your session, towel dry, weigh yourself nude again, and record fluid drank: Sweat Rate (oz/hr) = [(Pre-Weight - Post-Weight in lbs) \u00d7 16 + Fluid Drank in oz] \u00f7 Workout Hours."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is plain water dangerous during prolonged endurance marathons?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sweat contains high concentrations of sodium (800\u20131,600 mg/L). Drinking gallons of sodium-free water during prolonged events dilutes blood sodium levels below 135 mmol/L, causing life-threatening Exercise-Associated Hyponatremia (EAH)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much fluid should I drink after working out?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ACSM guidelines recommend drinking 125% to 150% of the net fluid lost over the 2 to 4 hours following exercise, alongside sodium, to fully restore intracellular and extracellular fluid volumes."
+        }
+      }
+    ]
+  }
+]
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">💧 ACSM Exercise Physiology Fluid Replacement Standards</div>
+      <h1>Sweat Rate & Electrolyte Replacement Calculator</h1>
+      <p class="subtitle">Calculate fluid loss, hourly sweat rate, and elemental sodium, potassium, and magnesium replacement needs for endurance and heat training.</p>
+    </header>
+
+    <!-- AdSense Top Banner -->
+    <div style="text-align:center; margin: 16px 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <main class="calc-grid">
+      <!-- Inputs Card -->
+      <form class="card" id="electrolyte-hydration-calculator-form" onsubmit="event.preventDefault();">
+        <h2>📐 Bodyweight Changes & Training Session</h2>
+        
+        <div class="input-row">
+          <div class="form-group">
+            <label for="preWeight">Pre-Exercise Bodyweight</label>
+            <div class="input-wrap">
+              <input type="number" id="preWeight" step="0.5" min="80" max="350" value="175" required>
+              <span class="input-suffix">lbs</span>
+            </div>
+            <span class="hint">Weigh nude or in minimal dry clothing</span>
+          </div>
+          <div class="form-group">
+            <label for="postWeight">Post-Exercise Bodyweight</label>
+            <div class="input-wrap">
+              <input type="number" id="postWeight" step="0.5" min="78" max="348" value="172.5" required>
+              <span class="input-suffix">lbs</span>
+            </div>
+            <span class="hint">Towel dry sweat before weighing</span>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="workoutMinutes">Workout Duration</label>
+            <div class="input-wrap">
+              <input type="number" id="workoutMinutes" step="5" min="15" max="360" value="90" required>
+              <span class="input-suffix">min</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fluidConsumed">Fluid Drank During Session</label>
+            <div class="input-wrap">
+              <input type="number" id="fluidConsumed" step="4" min="0" max="128" value="24" required>
+              <span class="input-suffix">fl oz</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="sweatProfile">Individual Sweat Salinity Profile</label>
+          <select id="sweatProfile">
+            <option value="800">Low to Moderate Salt Sweater (~800 mg Sodium/Liter)</option>
+            <option value="1150" selected>Typical Endurance Athlete (~1,150 mg Sodium/Liter)</option>
+            <option value="1600">Heavy 'Salty Sweater' (White salt crust on skin: ~1,600 mg Sodium/Liter)</option>
+          </select>
+        </div>
+        
+      </form>
+
+      <!-- Results Card -->
+      <div class="card">
+        <h2>📊 Hourly Sweat Rate & Electrolyte Deficit</h2>
+        
+        <div class="result-hero">
+          <div class="result-hero-val" id="resSweatRate">42.7 oz / hr</div>
+          <div class="result-hero-label">Hourly Sweat Rate (1.26 L/hr)</div>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-item">
+            <div class="spec-desc">Elemental Sodium Lost</div>
+            <div class="spec-val" id="resSodiumMg">2,185 mg Na</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-desc">Elemental Potassium Lost</div>
+            <div class="spec-val" id="resPotassiumMg">380 mg K</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-desc">Total Net Fluid Deficit</div>
+            <div class="spec-val" id="resTotalLoss">64.0 fl oz (1.89 L)</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-desc">Dehydration Bodyweight %</div>
+            <div class="spec-val" id="resDehydrationPct">1.43% (Mild)</div>
+          </div>
+        </div>
+        
+      </div>
+    </main>
+
+    
+    <!-- Clinical & Safety Disclaimers -->
+    <section class="medical-card">
+      <h3>⚠️ Exercise-Associated Hyponatremia (EAH) & Renal Advisory</h3>
+      <div class="warning-callout">
+        <strong>Hyponatremia Hazard (Water Intoxication):</strong> Overconsumption of plain hypotonic water without adequate sodium during events lasting longer than 3–4 hours can dangerously dilute blood serum sodium (< 135 mmol/L), resulting in Exercise-Associated Hyponatremia (EAH), cerebral edema, seizures, and death.
+        <br><br>
+        <strong>Cardiovascular & Renal Medications:</strong> Individuals taking ACE inhibitors, Angiotensin Receptor Blockers (ARBs), or potassium-sparing diuretics must exercise extreme caution with high-potassium electrolyte formulations due to the risk of life-threatening hyperkalemia.
+        <br><br>
+        <strong>Clinical Dehydration:</strong> This calculator is designed for exercise fluid management and is not a substitute for clinical oral rehydration therapy (ORT) for medical cholera or pathological diarrhea.
+      </div>
+    </section>
+
+    <!-- Clinical Evidence Citations -->
+    <section class="citations-section">
+      <h3>📚 Peer-Reviewed Sports Physiology Citations (PubMed / NLM)</h3>
+      <div class="citations-grid">
+        <div class="citation-item">
+          <div class="citation-title">American College of Sports Medicine position stand. Exercise and fluid replacement</div>
+          <div class="citation-authors">Sawka MN, Burke LM, Eichner ER, et al. — <em>Medicine and Science in Sports and Exercise</em>, 2007</div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/17277604/" target="_blank" rel="noopener noreferrer" class="citation-link">PubMed PMID: 17277604 ↗</a>
+        </div>
+        <div class="citation-item">
+          <div class="citation-title">Sweating Rate and Sweat Sodium Concentration in Athletes: A Review of Methodology and Variability</div>
+          <div class="citation-authors">Baker LB. — <em>Sports Medicine</em>, 2017</div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/28659104/" target="_blank" rel="noopener noreferrer" class="citation-link">PubMed PMID: 28659104 ↗</a>
+        </div>
+      </div>
+    </section>
+        
+
+    <!-- Amazon Supplies Box -->
+    <section class="supplies-card">
+      <h3>🔬 Recommended High-Sodium Electrolytes & Hydration Bottles</h3>
+      <div class="supplies-grid">
+        <div class="supply-item">
+          <div>
+            <div class="supply-title">LMNT Zero-Sugar High-Sodium Electrolyte Drink Mix (1000mg Na)</div>
+            <div class="supply-desc">Optimal 1000mg sodium, 200mg potassium, 60mg magnesium formulated for heavy sweaters and athletes.</div>
+          </div>
+          <a href="https://www.amazon.com/s?k=lmnt+electrolyte+drink+mix&tag=sebiglesias-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check on Amazon →</a>
+        </div>
+        <div class="supply-item">
+          <div>
+            <div class="supply-title">Precision High-Capacity Digital Bathroom Scale (0.1 lb Resolution)</div>
+            <div class="supply-desc">Instant-read scale with high repeatability to measure acute exercise sweat loss accurately.</div>
+          </div>
+          <a href="https://www.amazon.com/s?k=precision+digital+bathroom+scale+athletes&tag=sebiglesias-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check on Amazon →</a>
+        </div>
+        <div class="supply-item">
+          <div>
+            <div class="supply-title">Insulated Stainless Steel Sports Bottle with Chug Cap (32 oz)</div>
+            <div class="supply-desc">Double-wall vacuum flask keeping electrolyte fluids ice cold for 24 hours in direct summer sun.</div>
+          </div>
+          <a href="https://www.amazon.com/s?k=insulated+stainless+steel+water+bottle+32+oz&tag=sebiglesias-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check on Amazon →</a>
+        </div>
+        <div class="supply-item">
+          <div>
+            <div class="supply-title">Bulk Sodium Chloride + Potassium Chloride Electrolyte Powder</div>
+            <div class="supply-desc">Unflavored bulk mineral salts for custom electrolyte tailoring without artificial dyes.</div>
+          </div>
+          <a href="https://www.amazon.com/s?k=bulk+electrolytes+sodium+potassium+powder&tag=sebiglesias-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check on Amazon →</a>
+        </div>
+      </div>
+      <p style="font-size:0.75rem; color:#94a3b8; margin-top:14px; margin-bottom:0; text-align:center;">
+        ⚖️ <em>Affiliate Notice: As an Amazon Associate, this site earns from qualifying purchases at no additional cost to you. We strictly link to high-sodium endurance hydration mixes, insulated water growlers, and precision digital scales.</em>
+      </p>
+    </section>
+
+    <!-- FAQ Section for SEO -->
+    <section class="faq-section">
+      <h2 style="font-size:1.35rem; color:#ffffff; margin-bottom:16px;">Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <div class="faq-q">How do I calculate my personal sweat rate?</div>
+        <div class="faq-a">Weigh yourself nude immediately prior to training. After your session, towel dry, weigh yourself nude again, and record fluid drank: Sweat Rate (oz/hr) = [(Pre-Weight - Post-Weight in lbs) × 16 + Fluid Drank in oz] ÷ Workout Hours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why is plain water dangerous during prolonged endurance marathons?</div>
+        <div class="faq-a">Sweat contains high concentrations of sodium (800–1,600 mg/L). Drinking gallons of sodium-free water during prolonged events dilutes blood sodium levels below 135 mmol/L, causing life-threatening Exercise-Associated Hyponatremia (EAH).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How much fluid should I drink after working out?</div>
+        <div class="faq-a">ACSM guidelines recommend drinking 125% to 150% of the net fluid lost over the 2 to 4 hours following exercise, alongside sodium, to fully restore intracellular and extracellular fluid volumes.</div>
+      </div>
+    </section>
+
+    <!-- Bottom AdSense Banner -->
+    <div style="text-align:center; margin: 32px 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <footer>
+      <p>© 2026 <a href='https://sebiglesias.com.ar/'>sebiglesias.com.ar</a> · Sweat Rate & Electrolyte Replacement Calculator. Exercise physiology reference tool based on ACSM guidelines. Not medical advice.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

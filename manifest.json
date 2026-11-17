@@ -1,0 +1,15 @@
+{
+  "name": "Sweat Rate & Electrolyte Replacement Calculator (Na, K, Mg)",
+  "short_name": "Electrolyte Calc",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#022026",
+  "theme_color": "#06b6d4",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
